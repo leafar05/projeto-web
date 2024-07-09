@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '@/app/login/style3/produtos2.module.css'; // Import the CSS file
+import styles from '@/app/login/style3/produtos2.module.css'; // Importa o arquivo CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '@/app/header';
 import Footer from '@/app/footer';
 import AuthGuard from '@/app/AuthGuard';
 
+// Define a interface para o produto
 interface Produto {
     id: number;
     attributes: {
@@ -18,15 +19,18 @@ interface Produto {
     };
 }
 
+// Componente para editar produtos
 export default function EditarProdutoPage() {
+    // Estados para armazenar os valores dos campos do formulário
     const [produtos, setProdutos] = useState<Produto[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true); // Estado de carregamento
     const [editandoId, setEditandoId] = useState<number | null>(null);
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [preco, setPreco] = useState('');
     const [disponivel, setDisponivel] = useState(false);
-
+    
+    // Função para buscar os produtos do servidor
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
@@ -42,6 +46,7 @@ export default function EditarProdutoPage() {
         fetchProdutos();
     }, []);
 
+    // Função para iniciar a edição de um produto
     const handleEdit = (produto: Produto) => {
         setEditandoId(produto.id);
         setNome(produto.attributes.nome);
@@ -50,6 +55,7 @@ export default function EditarProdutoPage() {
         setDisponivel(produto.attributes.disponivel);
     };
 
+    // Função para excluir um produto
     const handleDelete = async (id: number) => {
         try {
             await axios.delete(`http://localhost:1337/api/produtos/${id}`);
@@ -59,6 +65,7 @@ export default function EditarProdutoPage() {
         }
     };
 
+    // Função para enviar as atualizações de um produto
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
         e.preventDefault();
 
@@ -90,7 +97,7 @@ export default function EditarProdutoPage() {
                 <Header />
                 <div className={styles.container}>
                     <h1 className={styles.header}>Editar Produto</h1>
-                    <a href="/login/inicial" className={`btn btn-primary bg-success`} type='buuton'>Voltar</a><br />
+                    <a href="/login/inicial" className={`btn btn-primary bg-success`} type='button'>Voltar</a><br />
                     {loading ? (
                         <p>Carregando...</p>
                     ) : (
@@ -159,7 +166,6 @@ export default function EditarProdutoPage() {
                                                     <button onClick={() => handleDelete(produto.id)} className="btn btn-primary bg-success px-5 mb-2" style={{ marginLeft: '0', backgroundColor: 'red', color: 'white' }}>Excluir</button>
                                                 </div>
                                             </div>
-
                                         </>
                                     )}
                                 </div>

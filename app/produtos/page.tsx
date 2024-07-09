@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './style2/produtos.module.css'; // Import the CSS file
+import styles from './style2/produtos.module.css'; // Importa o arquivo CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../header';
 import Footer from '../footer';
 
+// Interface para representar um Produto
 interface Produto {
     id: number;
     attributes: {
@@ -21,10 +22,12 @@ interface Produto {
 }
 
 export default function ProdutoPage() {
+    // Estados para armazenar os valores dos campos do formulário
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedProdutos, setSelectedProdutos] = useState<Produto[]>([]);
 
+    // useEffect para buscar os produtos ao carregar a página
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
@@ -40,6 +43,7 @@ export default function ProdutoPage() {
         fetchProdutos();
     }, []);
 
+    // Função para selecionar ou remover um produto da lista de selecionados
     const handleSelectProduto = (produto: Produto) => {
         setSelectedProdutos((prevSelectedProdutos) => {
             const isSelected = prevSelectedProdutos.some((p) => p.id === produto.id);
@@ -47,7 +51,7 @@ export default function ProdutoPage() {
                 ? prevSelectedProdutos.filter((p) => p.id !== produto.id)
                 : [...prevSelectedProdutos, produto];
 
-            localStorage.setItem('selectedProdutos', JSON.stringify(newSelectedProdutos));
+            localStorage.setItem('selectedProdutos', JSON.stringify(newSelectedProdutos)); // Salva os produtos selecionados no localStorage
             return newSelectedProdutos;
         });
     };
@@ -75,7 +79,7 @@ export default function ProdutoPage() {
                                     <button
                                         onClick={() => handleSelectProduto(produto)}
                                         className={`btn mt-auto`}
-                                        style={{color: 'white', marginTop: '10px', backgroundColor: selectedProdutos.some(p => p.id === produto.id) ? 'red' : 'green' }}
+                                        style={{ color: 'white', marginTop: '10px', backgroundColor: selectedProdutos.some(p => p.id === produto.id) ? 'red' : 'green' }}
                                     >
                                         {selectedProdutos.some(p => p.id === produto.id) ? 'Remover' : 'Selecionar'}
                                     </button>

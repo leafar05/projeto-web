@@ -1,4 +1,3 @@
-// app/login/inicial/pedidos.tsx
 'use client'; // Assegura que o componente é tratado como Client Component
 
 import React, { useEffect, useState } from 'react';
@@ -8,6 +7,7 @@ import Header from '@/app/header';
 import Footer from '@/app/footer';
 import AuthGuard from '@/app/AuthGuard';
 
+// Interface para o produto
 interface Produto {
     id: number;
     attributes: {
@@ -21,6 +21,7 @@ interface Produto {
     };
 }
 
+// Interface para o pedido
 interface Pedido {
     produtos: Produto[];
     nomePedido: string;
@@ -28,9 +29,11 @@ interface Pedido {
     total: number;
 }
 
+// Componente para exibir e gerenciar pedidos
 const PedidosPage = () => {
-    const [pedidos, setPedidos] = useState<Pedido[]>([]);
+    const [pedidos, setPedidos] = useState<Pedido[]>([]); // Estado para armazenar a lista de pedidos
 
+    // Efeito para buscar pedidos do localStorage quando o componente é montado
     useEffect(() => {
         const pedidosFromStorage = localStorage.getItem('pedidos');
         if (pedidosFromStorage) {
@@ -38,6 +41,7 @@ const PedidosPage = () => {
         }
     }, []);
 
+    // Função para finalizar um pedido
     const handleFinalizarPedido = (index: number) => {
         const novosPedidos = pedidos.filter((_, i) => i !== index);
         setPedidos(novosPedidos);
@@ -45,6 +49,7 @@ const PedidosPage = () => {
         alert('Pedido finalizado com sucesso!');
     };
 
+    // Função para cancelar um pedido
     const handleCancelarPedido = (index: number) => {
         const novosPedidos = pedidos.filter((_, i) => i !== index);
         setPedidos(novosPedidos);
@@ -57,8 +62,8 @@ const PedidosPage = () => {
             <div className="d-flex flex-column min-vh-100">
                 <Header />
                 <div className={styles.container}>
-                    <h2 className='text-center'>Pedidos Recebidos</h2>
-                    <a href="/login/inicial" className={`btn btn-primary bg-success mb-5`} type='button'>Voltar</a>
+                    <h2 className="text-center">Pedidos Recebidos</h2>
+                    <a href="/login/inicial" className={`btn btn-primary bg-success mb-5`} type="button">Voltar</a>
                     <div className="row justify-content-center">
                         {pedidos.length > 0 ? (
                             <ul className="list-group">

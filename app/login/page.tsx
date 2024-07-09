@@ -1,26 +1,26 @@
-// app/login/page.tsx
 'use client';
 
 import React, { useState } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '@/app/login/style3/produtos2.module.css';
-import Header from '@/app/header';
-import Footer from '@/app/footer';
+import styles from '@/app/login/style3/produtos2.module.css'; 
+import Header from '@/app/header'; 
+import Footer from '@/app/footer'; 
 import { loginUser } from '@/app/auth/auth';
 import AuthGuard from '@/app/AuthGuard';
 
 export default function LoginPage() {
+    //Armazenamento de dados
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    // Função para lidar com o login do usuário
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            await loginUser(email, password);
-            window.location.href = '/login/inicial'; // Redirect to /inicial page
+            await loginUser(email, password); // Tenta fazer login com as credenciais fornecidas
+            window.location.href = '/login/inicial'; // Redireciona para a página inicial após o login bem-sucedido
         } catch (err) {
             setError('Erro ao fazer login. Verifique suas credenciais.');
         }

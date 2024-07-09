@@ -2,23 +2,27 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import styles from '@/app/login/style3/produtos2.module.css'; // Import the CSS file
+import styles from '@/app/login/style3/produtos2.module.css'; // Importa o arquivo CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '@/app/header';
 import Footer from '@/app/footer';
 import { loginUser } from '@/app/auth/auth';
 import AuthGuard from '@/app/AuthGuard';
 
+// Componente para criar um novo produto
 export default function CriarProdutoPage() {
+  // Estados para armazenar os valores dos campos do formulário
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
   const [disponivel, setDisponivel] = useState(false); // Estado para disponibilidade
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+      // Envia uma requisição POST para criar um novo produto
       const response = await axios.post('http://localhost:1337/api/produtos', {
         data: {
           nome,
@@ -29,7 +33,7 @@ export default function CriarProdutoPage() {
       });
 
       console.log('Produto criado:', response.data);
-      // Limpar os campos após a criação do produto
+      // Limpa os campos após a criação do produto
       setNome('');
       setDescricao('');
       setPreco('');
@@ -88,7 +92,7 @@ export default function CriarProdutoPage() {
             <div className="d-flex justify-content-between">
               <button type="submit" className={`btn btn-primary bg-success mt-auto`}>Criar Produto</button>
               <div className='d-flex'>
-                <a href="/login/inicial" className={`btn btn-primary bg-success mt-auto`} type='buuton'>Voltar aos menus</a>
+                <a href="/login/inicial" className={`btn btn-primary bg-success mt-auto px-4`} type='button'>Voltar</a>
               </div>
             </div>
           </form>

@@ -1,12 +1,12 @@
-// app/login/inicial/finalizar.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from '../style2/produtos.module.css'; // Import the CSS file
+import styles from '../style2/produtos.module.css'; // Importa o arquivo CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../header';
 import Footer from '../../footer';
 
+// Interface para representar um Produto
 interface Produto {
     id: number;
     attributes: {
@@ -20,6 +20,7 @@ interface Produto {
     };
 }
 
+// Interface para representar um Pedido
 interface Pedido {
     produtos: Produto[];
     nomePedido: string;
@@ -28,10 +29,12 @@ interface Pedido {
 }
 
 export default function FinalizarPedidoPage() {
+    // Estados para armazenar os valores dos campos do formulário
     const [selectedProdutos, setSelectedProdutos] = useState<Produto[]>([]);
     const [nomePedido, setNomePedido] = useState('');
     const [telefone, setTelefone] = useState('');
 
+    // Carrega os produtos selecionados do localStorage ao carregar a página
     useEffect(() => {
         const savedProdutos = localStorage.getItem('selectedProdutos');
         if (savedProdutos) {
@@ -39,7 +42,9 @@ export default function FinalizarPedidoPage() {
         }
     }, []);
 
+    // Função para finalizar o pedido
     const handleFinalizarPedido = () => {
+        // Verifica se os campos obrigatórios estão preenchidos
         if (nomePedido.trim() === '' || telefone.trim() === '') {
             alert('Por favor, preencha todos os campos.');
             return;
@@ -52,20 +57,21 @@ export default function FinalizarPedidoPage() {
             total
         };
 
-        // Salva o pedido no local storage
+        // Guarda o pedido no local storage
         const savedPedidos = localStorage.getItem('pedidos');
         const pedidos = savedPedidos ? JSON.parse(savedPedidos) : [];
         pedidos.push(pedido);
         localStorage.setItem('pedidos', JSON.stringify(pedidos));
 
         alert(`Pedido finalizado com sucesso!\nSr(a).: ${nomePedido}`);
-        localStorage.removeItem('selectedProdutos');
-        setSelectedProdutos([]);
+        localStorage.removeItem('selectedProdutos'); // Remove os produtos selecionados do localStorage
+        setSelectedProdutos([]); // Limpa os estados após finalizar o pedido
         setNomePedido('');
         setTelefone('');
-        window.location.href = '/produtos';
+        window.location.href = '/produtos'; // Redireciona para a página de produtos
     };
 
+    // Calcula o total dos produtos selecionados
     const total = selectedProdutos.reduce((acc, produto) => acc + parseFloat(produto.attributes.preco), 0);
 
     return (
