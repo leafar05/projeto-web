@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '@/app/style2/produtos.module.css';
+import styles from '@/app/produtos/style2/produtos.module.css';
 import Header from '@/app/header';
 import Footer from '@/app/footer';
 
@@ -26,6 +26,7 @@ const SobreNosPage = () => {
                         oferecer excelência em cada prato e um sorriso em cada atendimento.
                     </p>
                 </div>
+                <a href="/" type='button' className={`btn btn-success`}>Voltar</a>
             </div>
             <Footer />
         </div>

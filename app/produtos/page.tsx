@@ -61,8 +61,8 @@ export default function ProdutoPage() {
             <Header />
             <div className={styles.container}>
                 <h1 className={styles.header}>Lista de Produtos</h1>
-                <a href="/produtos/finalizar" type='button' className={`btn btn-success m-1`}>Finalizar Pedido</a><br />
-
+                <a href="/produtos/finalizar" type='button' className={`btn btn-success`}>Finalizar Pedido</a><br />
+                <a href="/" type='button' className={`btn btn-success mb-2`}>Voltar</a>
                 {loading ? (
                     <p>Carregando...</p>
                 ) : (
