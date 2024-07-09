@@ -1,3 +1,4 @@
+// app/login/inicial/finalizar.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -19,6 +20,13 @@ interface Produto {
     };
 }
 
+interface Pedido {
+    produtos: Produto[];
+    nomePedido: string;
+    telefone: string;
+    total: number;
+}
+
 export default function FinalizarPedidoPage() {
     const [selectedProdutos, setSelectedProdutos] = useState<Produto[]>([]);
     const [nomePedido, setNomePedido] = useState('');
@@ -37,12 +45,25 @@ export default function FinalizarPedidoPage() {
             return;
         }
 
+        const pedido: Pedido = {
+            produtos: selectedProdutos,
+            nomePedido,
+            telefone,
+            total
+        };
+
+        // Salva o pedido no local storage
+        const savedPedidos = localStorage.getItem('pedidos');
+        const pedidos = savedPedidos ? JSON.parse(savedPedidos) : [];
+        pedidos.push(pedido);
+        localStorage.setItem('pedidos', JSON.stringify(pedidos));
+
         alert(`Pedido finalizado com sucesso!\nSr(a).: ${nomePedido}`);
         localStorage.removeItem('selectedProdutos');
         setSelectedProdutos([]);
         setNomePedido('');
         setTelefone('');
-        window.location.href='/produtos';
+        window.location.href = '/produtos';
     };
 
     const total = selectedProdutos.reduce((acc, produto) => acc + parseFloat(produto.attributes.preco), 0);
@@ -52,6 +73,7 @@ export default function FinalizarPedidoPage() {
             <Header />
             <div className={styles.container}>
                 <h1 className={styles.header}>Finalizar Pedido</h1>
+                <a href="/produtos" className={`btn btn-success mb-3`} type='button'>Voltar</a>
                 {selectedProdutos.length > 0 ? (
                     <div className={styles.selectedContainer}>
                         <div className={styles.menus}>
@@ -81,7 +103,6 @@ export default function FinalizarPedidoPage() {
                                     required
                                     className={styles.formInput}
                                 />
-
                             </div>
                             <div className={styles.formGroup}>
                                 <label htmlFor="telefone" className={styles.formLabel}>Número de Telefone:</label>
@@ -97,13 +118,12 @@ export default function FinalizarPedidoPage() {
                                 />
                             </div>
                         </div>
-
                     </div>
                 ) : (
                     <p>Nenhum produto selecionado.</p>
                 )}
             </div>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
 }

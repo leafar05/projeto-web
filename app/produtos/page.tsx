@@ -74,8 +74,8 @@ export default function ProdutoPage() {
                                 {produto.attributes.disponivel && (
                                     <button
                                         onClick={() => handleSelectProduto(produto)}
-                                        className={`btn  mt-auto`}
-                                        style={{ marginTop: '10px', backgroundColor: selectedProdutos.some(p => p.id === produto.id) ? 'blue' : 'initial' }}
+                                        className={`btn mt-auto`}
+                                        style={{color: 'white', marginTop: '10px', backgroundColor: selectedProdutos.some(p => p.id === produto.id) ? 'red' : 'green' }}
                                     >
                                         {selectedProdutos.some(p => p.id === produto.id) ? 'Remover' : 'Selecionar'}
                                     </button>

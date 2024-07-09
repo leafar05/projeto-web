@@ -6,6 +6,7 @@ import styles from '@/app/login/style3/produtos2.module.css'; // Import the CSS 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '@/app/header';
 import Footer from '@/app/footer';
+import AuthGuard from '@/app/AuthGuard';
 
 interface Produto {
     id: number;
@@ -84,88 +85,90 @@ export default function EditarProdutoPage() {
     };
 
     return (
-        <div className="d-flex flex-column min-vh-100">
-            <Header />
-            <div className={styles.container}>
-                <h1 className={styles.header}>Editar Produto</h1>
-                <a href="/login/inicial" className={`btn btn-primary bg-success`} type='buuton'>Voltar</a><br />
-                {loading ? (
-                    <p>Carregando...</p>
-                ) : (
-                    <div className={styles.cardContainer}>
-                        {produtos.map((produto) => (
-                            <div key={produto.id} className="card col-md-3 p-2">
-                                {editandoId === produto.id ? (
-                                    <form onSubmit={(e) => handleSubmit(e, produto.id)} className={styles.form}>
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="nome" className={styles.formLabel}>Nome:</label>
-                                            <input
-                                                type="text"
-                                                id="nome"
-                                                value={nome}
-                                                onChange={(e) => setNome(e.target.value)}
-                                                required
-                                                className={styles.formInput}
-                                            />
-                                        </div>
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="descricao" className={styles.formLabel}>Descrição:</label>
-                                            <textarea
-                                                id="descricao"
-                                                value={descricao}
-                                                onChange={(e) => setDescricao(e.target.value)}
-                                                required
-                                                className={styles.formTextarea}
-                                            ></textarea>
-                                        </div>
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="preco" className={styles.formLabel}>Preço:</label>
-                                            <input
-                                                type="number"
-                                                id="preco"
-                                                step="0.01"
-                                                value={preco}
-                                                onChange={(e) => setPreco(e.target.value)}
-                                                required
-                                                className={styles.formInput}
-                                            />
-                                        </div>
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="disponivel" className={styles.formLabel}>Disponível:</label>
-                                            <button type="button" onClick={() => setDisponivel(!disponivel)} className={`btn btn-primary bg-success mt-auto px-4`}>
-                                                {disponivel ? 'Sim' : 'Não'}
-                                            </button>
-                                        </div>
-                                        <div className="d-flex mt-auto justify-content-between">
-                                            <button type="submit" className={`btn btn-primary bg-success mt-auto`}>Atualizar Produto</button>
-                                            <div className="d-flex">
-                                                <button type="button" onClick={() => setEditandoId(null)} className={`btn btn-primary bg-success mt-auto`}>Cancelar</button>
+        <AuthGuard>
+            <div className="d-flex flex-column min-vh-100">
+                <Header />
+                <div className={styles.container}>
+                    <h1 className={styles.header}>Editar Produto</h1>
+                    <a href="/login/inicial" className={`btn btn-primary bg-success`} type='buuton'>Voltar</a><br />
+                    {loading ? (
+                        <p>Carregando...</p>
+                    ) : (
+                        <div className={styles.cardContainer}>
+                            {produtos.map((produto) => (
+                                <div key={produto.id} className="card col-md-3 p-2">
+                                    {editandoId === produto.id ? (
+                                        <form onSubmit={(e) => handleSubmit(e, produto.id)} className={styles.form}>
+                                            <div className={styles.formGroup}>
+                                                <label htmlFor="nome" className={styles.formLabel}>Nome:</label>
+                                                <input
+                                                    type="text"
+                                                    id="nome"
+                                                    value={nome}
+                                                    onChange={(e) => setNome(e.target.value)}
+                                                    required
+                                                    className={styles.formInput}
+                                                />
                                             </div>
-                                        </div>
-                                    </form>
-                                ) : (
-                                    <>
-                                        <h2 className={styles.cardTitle}>{produto.attributes.nome}</h2>
-                                        <p className={styles.cardDescription}>{produto.attributes.descricao}</p>
-                                        <p className={styles.cardPrice}>Preço: {produto.attributes.preco} EUR</p>
-                                        <p className={styles.cardAvailability} style={{ color: produto.attributes.disponivel ? 'green' : 'red' }}>
-                                            Disponível: {produto.attributes.disponivel ? 'Sim' : 'Não'}
-                                        </p>
-                                        <div className={`d-flex justify-content-between mt-auto ${styles['button-container']}`}>
-                                            <button onClick={() => handleEdit(produto)} className="btn btn-primary bg-success px-5 mb-2">Editar</button>
-                                            <div className={`d-flex ${styles['button-container']}`}>
-                                                <button onClick={() => handleDelete(produto.id)} className="btn btn-primary bg-success px-5 mb-2" style={{ marginLeft: '0', backgroundColor: 'red', color: 'white' }}>Excluir</button>
+                                            <div className={styles.formGroup}>
+                                                <label htmlFor="descricao" className={styles.formLabel}>Descrição:</label>
+                                                <textarea
+                                                    id="descricao"
+                                                    value={descricao}
+                                                    onChange={(e) => setDescricao(e.target.value)}
+                                                    required
+                                                    className={styles.formTextarea}
+                                                ></textarea>
                                             </div>
-                                        </div>
+                                            <div className={styles.formGroup}>
+                                                <label htmlFor="preco" className={styles.formLabel}>Preço:</label>
+                                                <input
+                                                    type="number"
+                                                    id="preco"
+                                                    step="0.01"
+                                                    value={preco}
+                                                    onChange={(e) => setPreco(e.target.value)}
+                                                    required
+                                                    className={styles.formInput}
+                                                />
+                                            </div>
+                                            <div className={styles.formGroup}>
+                                                <label htmlFor="disponivel" className={styles.formLabel}>Disponível:</label>
+                                                <button type="button" onClick={() => setDisponivel(!disponivel)} className={`btn btn-primary bg-success mt-auto px-4`}>
+                                                    {disponivel ? 'Sim' : 'Não'}
+                                                </button>
+                                            </div>
+                                            <div className="d-flex mt-auto justify-content-between">
+                                                <button type="submit" className={`btn btn-primary bg-success mt-auto`}>Atualizar Produto</button>
+                                                <div className="d-flex">
+                                                    <button type="button" onClick={() => setEditandoId(null)} className={`btn btn-primary bg-success mt-auto`}>Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <>
+                                            <h2 className={styles.cardTitle}>{produto.attributes.nome}</h2>
+                                            <p className={styles.cardDescription}>{produto.attributes.descricao}</p>
+                                            <p className={styles.cardPrice}>Preço: {produto.attributes.preco} EUR</p>
+                                            <p className={styles.cardAvailability} style={{ color: produto.attributes.disponivel ? 'green' : 'red' }}>
+                                                Disponível: {produto.attributes.disponivel ? 'Sim' : 'Não'}
+                                            </p>
+                                            <div className={`d-flex justify-content-between mt-auto ${styles['button-container']}`}>
+                                                <button onClick={() => handleEdit(produto)} className="btn btn-primary bg-success px-5 mb-2">Editar</button>
+                                                <div className={`d-flex ${styles['button-container']}`}>
+                                                    <button onClick={() => handleDelete(produto.id)} className="btn btn-primary bg-success px-5 mb-2" style={{ marginLeft: '0', backgroundColor: 'red', color: 'white' }}>Excluir</button>
+                                                </div>
+                                            </div>
 
-                                    </>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                )}
+                                        </>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </AuthGuard>
     );
 }

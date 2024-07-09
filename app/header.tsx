@@ -8,8 +8,8 @@ const Header = () => {
                 <h1>Delícias na Roda</h1>
 
                 <div className="d-flex">
-                    <a href="/.." className="btn btn-outline-light" type="button">Voltar</a>
                     <a href="/login" className="btn btn-outline-light ms-4" type="button">Login</a>
+                    <a href="/sobreNos" className="btn btn-outline-light ms-4" type="button">Sobre Nós</a>
                 </div>
             </div>
         </header>

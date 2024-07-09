@@ -23,7 +23,7 @@ export const logoutUser = () => {
     path: '/',
   });
   // Optionally, redirect the user to the login page
-  window.location.href = '/login';
+  window.location.href = '/';
 };
 
 export const isAuthenticated = () => {

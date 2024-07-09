@@ -19,6 +19,7 @@ export default function managerPage() {
                     <div className="row justify-content-center">
                         <a href="/login/inicial/create" className={`btn btn-primary bg-success mt-auto`} type='buuton'>Criar novos Produtos</a>
                         <a href="/login/inicial/editar" className={`btn btn-primary bg-success mt-3`} type='buuton'>Editar Produtos</a>
+                        <a href="/login/inicial/pedidos" className={`btn btn-primary bg-success mt-3`} type='button'>Visualizar Pedidos</a>
                         <button
                             onClick={logoutUser}
                             className="btn btn-danger bg-danger mt-3"
