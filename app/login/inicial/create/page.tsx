@@ -6,6 +6,8 @@ import styles from '@/app/login/style3/produtos2.module.css'; // Import the CSS 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '@/app/header';
 import Footer from '@/app/footer';
+import { loginUser } from '@/app/auth/auth';
+import AuthGuard from '@/app/AuthGuard';
 
 export default function CriarProdutoPage() {
   const [nome, setNome] = useState('');
@@ -38,59 +40,61 @@ export default function CriarProdutoPage() {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header />
-      <div className={styles.container}>
-        <h1 className={styles.header}>Criar Produto</h1>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="nome" className={styles.formLabel}>Nome:</label>
-            <input
-              type="text"
-              id="nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              required
-              className={styles.formInput}
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="descricao" className={styles.formLabel}>Descrição:</label>
-            <textarea
-              id="descricao"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              required
-              className={styles.formTextarea}
-            ></textarea>
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="preco" className={styles.formLabel}>Preço:</label>
-            <input
-              type="number"
-              id="preco"
-              step="0.01"
-              value={preco}
-              onChange={(e) => setPreco(e.target.value)}
-              required
-              className={styles.formInput}
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="disponivel" className={styles.formLabel}>Disponível:</label>
-            <button type="button" onClick={() => setDisponivel(!disponivel)} className={`btn btn-primary bg-success mt-auto`}>
-              {disponivel ? 'Sim' : 'Não'}
-            </button>
-          </div>
-          <div className="d-flex justify-content-between">
-            <button type="submit" className={`btn btn-primary bg-success mt-auto`}>Criar Produto</button>
-            <div className='d-flex'>
-              <a href="/login/inicial" className={`btn btn-primary bg-success mt-auto`} type='buuton'>Voltar aos menus</a>
+    <AuthGuard>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <div className={styles.container}>
+          <h1 className={styles.header}>Criar Produto</h1>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="nome" className={styles.formLabel}>Nome:</label>
+              <input
+                type="text"
+                id="nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                required
+                className={styles.formInput}
+              />
             </div>
-          </div>
-        </form>
+            <div className={styles.formGroup}>
+              <label htmlFor="descricao" className={styles.formLabel}>Descrição:</label>
+              <textarea
+                id="descricao"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                required
+                className={styles.formTextarea}
+              ></textarea>
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="preco" className={styles.formLabel}>Preço:</label>
+              <input
+                type="number"
+                id="preco"
+                step="0.01"
+                value={preco}
+                onChange={(e) => setPreco(e.target.value)}
+                required
+                className={styles.formInput}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="disponivel" className={styles.formLabel}>Disponível:</label>
+              <button type="button" onClick={() => setDisponivel(!disponivel)} className={`btn btn-primary bg-success mt-auto`}>
+                {disponivel ? 'Sim' : 'Não'}
+              </button>
+            </div>
+            <div className="d-flex justify-content-between">
+              <button type="submit" className={`btn btn-primary bg-success mt-auto`}>Criar Produto</button>
+              <div className='d-flex'>
+                <a href="/login/inicial" className={`btn btn-primary bg-success mt-auto`} type='buuton'>Voltar aos menus</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </AuthGuard>
   );
 }

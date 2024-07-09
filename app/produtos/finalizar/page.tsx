@@ -37,11 +37,12 @@ export default function FinalizarPedidoPage() {
             return;
         }
 
-        alert(`Pedido finalizado com sucesso!\nNome: ${nomePedido}\nTelefone: ${telefone}`);
+        alert(`Pedido finalizado com sucesso!\nSr(a).: ${nomePedido}`);
         localStorage.removeItem('selectedProdutos');
         setSelectedProdutos([]);
         setNomePedido('');
         setTelefone('');
+        window.location.href='/produtos';
     };
 
     const total = selectedProdutos.reduce((acc, produto) => acc + parseFloat(produto.attributes.preco), 0);

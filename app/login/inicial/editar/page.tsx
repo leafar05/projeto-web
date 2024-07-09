@@ -88,7 +88,7 @@ export default function EditarProdutoPage() {
             <Header />
             <div className={styles.container}>
                 <h1 className={styles.header}>Editar Produto</h1>
-                <a href="/login/inicial" className={`btn btn-primary bg-success mt-auto`} type='buuton'>Voltar</a><br />
+                <a href="/login/inicial" className={`btn btn-primary bg-success`} type='buuton'>Voltar</a><br />
                 {loading ? (
                     <p>Carregando...</p>
                 ) : (
@@ -151,12 +151,13 @@ export default function EditarProdutoPage() {
                                         <p className={styles.cardAvailability} style={{ color: produto.attributes.disponivel ? 'green' : 'red' }}>
                                             Disponível: {produto.attributes.disponivel ? 'Sim' : 'Não'}
                                         </p>
-                                        <div className="d-flex mt-auto justify-content-between">
-                                            <button onClick={() => handleEdit(produto)} className={`btn btn-primary bg-success px-5`}>Editar</button>
-                                            <div className='d-flex'>
-                                                <button onClick={() => handleDelete(produto.id)} className={`btn btn-primary bg-success px-5`} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>Excluir</button>
+                                        <div className={`d-flex justify-content-between mt-auto ${styles['button-container']}`}>
+                                            <button onClick={() => handleEdit(produto)} className="btn btn-primary bg-success px-5 mb-2">Editar</button>
+                                            <div className={`d-flex ${styles['button-container']}`}>
+                                                <button onClick={() => handleDelete(produto.id)} className="btn btn-primary bg-success px-5 mb-2" style={{ marginLeft: '0', backgroundColor: 'red', color: 'white' }}>Excluir</button>
                                             </div>
                                         </div>
+
                                     </>
                                 )}
                             </div>

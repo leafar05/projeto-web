@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <header className="bg-success text-white d-flex align-items-center text-center p-3 min-vw-100">
+        <header className="bg-success text-white d-flex align-items-center text-center p-3 min-vw-100 ">
             <div className="container d-flex flex-column">
                 <h2>Contacto:</h2>
                 <p>email: aluno26254@ipt.pt</p>

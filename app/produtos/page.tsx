@@ -57,8 +57,6 @@ export default function ProdutoPage() {
             <Header />
             <div className={styles.container}>
                 <h1 className={styles.header}>Lista de Produtos</h1>
-                <a href="/produtos/create" type='button' className={`btn btn-success m-1`}>Criar novo menu</a>
-                <a href="/produtos/editar" type='button' className={`btn btn-success m-1`}>Editar os menus</a>
                 <a href="/produtos/finalizar" type='button' className={`btn btn-success m-1`}>Finalizar Pedido</a><br />
 
                 {loading ? (
@@ -76,7 +74,7 @@ export default function ProdutoPage() {
                                 {produto.attributes.disponivel && (
                                     <button
                                         onClick={() => handleSelectProduto(produto)}
-                                        className={`btn btn-primary bg-success  mt-auto`}
+                                        className={`btn  mt-auto`}
                                         style={{ marginTop: '10px', backgroundColor: selectedProdutos.some(p => p.id === produto.id) ? 'blue' : 'initial' }}
                                     >
                                         {selectedProdutos.some(p => p.id === produto.id) ? 'Remover' : 'Selecionar'}
